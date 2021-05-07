@@ -1,0 +1,28 @@
+{
+  "name": "glendsmithandassociates",
+  "version": "0.0.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://w3-americas.assembla.com/spaces/w3-usa/git-16/source"
+  },
+  "contributors": [],
+  "scripts": {
+    "start": "node mailer.js dev",
+    "start-staging": "node mailer.js staging",
+    "start-prod": "node mailer.js prod"
+  },
+  "pre-commit": [],
+  "private": true,
+  "dependencies": {
+    "@types/request": "^2.48.2",
+    "body-parser": "^1.18.3",
+    "core-js": "^2.4.1",
+    "express": "^4.15.2",
+    "nodemailer": "^4.7.0",
+    "request": "^2.88.0"
+  },
+  "devDependencies": {
+    "ws": "3.3.2"
+  }
+}

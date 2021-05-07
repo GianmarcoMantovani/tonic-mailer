@@ -1,0 +1,29 @@
+{
+  "dev" : {
+    "production": false,
+    "email": "alexander.pantyukhov@w3americas.com",
+    "host": "localhost",
+    "port": 3003,
+    "https": false,
+    "recaptcha_site_key": "6LcpVJ4UAAAAABJ8MkJQ-fdnCks9CfCLi7zj2pO5",
+    "recaptcha_secret_key": "6Le3HLIUAAAAAEa-WK7RX1OnZdG5Z077Y1vHmrtC"
+  },
+  "staging" : {
+    "production": false,
+    "email": "sales@tonic3.com",
+    "host": "STAGING",
+    "port": 3003,
+    "https": false,
+    "recaptcha_site_key": "6LcpVJ4UAAAAABJ8MkJQ-fdnCks9CfCLi7zj2pO5",
+    "recaptcha_secret_key": "6Le3HLIUAAAAAEa-WK7RX1OnZdG5Z077Y1vHmrtC"
+  },
+  "prod" : {
+    "production": true,
+    "email": "sales@tonic3.com",
+    "host": "PROD",
+    "port": 3003,
+    "https": true,
+    "recaptcha_site_key": "6LcpVJ4UAAAAABJ8MkJQ-fdnCks9CfCLi7zj2pO5",
+    "recaptcha_secret_key": "6Le3HLIUAAAAAEa-WK7RX1OnZdG5Z077Y1vHmrtC"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "apps": [
+    {
+      "name": "node_mailer_smtp",
+      "script": "pm2-config-files/staging_start_mailer_server.sh",
+      "autorestart": false
+    }
+  ]
+}
