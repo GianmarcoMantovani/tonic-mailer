@@ -18,9 +18,9 @@ if(process && process.argv && process.argv[2] && process.argv[2] == 'prod'){
 const app = express();
 if(enviroment.https){
   var sslOptions = {
-    key: fs.readFileSync('/home/tonicuser/ssl-2016/tonic3.com.key', 'utf8'),
-    // cert: fs.readFileSync('/home/tonicuser/ssl-2020/gd_bundle-g2-g1.crt', 'utf8'),
-    cert: fs.readFileSync('/home/tonicuser/ssl-2021/4d29a2e73c318dd3.crt', 'utf8'),
+    key: fs.readFileSync('/var/www/certs/tonic3/tonic3.com.key', 'utf8'),
+    // cert: fs.readFileSync('/var/www/certs/tonic3/gd_bundle-g2-g1.crt', 'utf8'),
+    cert: fs.readFileSync('/var/www/certs/tonic3/4d29a2e73c318dd3.crt', 'utf8'),
     requestCert: false,
     rejectUnauthorized: false
   };
