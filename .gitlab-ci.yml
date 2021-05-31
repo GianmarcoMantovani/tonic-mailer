@@ -11,7 +11,7 @@ before_script:
 start-staging:
   stage: deploy
   tags:
-    - tonic3-aws
+    - usastaging
   script:
     - make start-mailer-staging
   only:
