@@ -57,7 +57,7 @@ const smtpConfig = {
 const mailOptions = {
   from: 'no-reply Tonic3<no-reply@w3americas.com>',
   to: enviroment.email,
-  subject: 'Tonic 3',
+  subject: 'Tonic3 - Contact',
   text: 'Body mail'
 };
                                       
