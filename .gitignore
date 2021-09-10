@@ -10,3 +10,4 @@ package-lock.json
 # Node #
 *.log
 /npm-debug.log.*
+upload
