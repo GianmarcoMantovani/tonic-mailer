@@ -75,7 +75,7 @@ app.post('/', function (req, res) {
   });
 
 
-  
+
   // let verificationUrl = "https://www.google.com/recaptcha/api/siteverify?secret=" + enviroment.recaptcha_secret_key + "&response=" + recaptchaToken;
  
   // request(verificationUrl,function(error,response,body) {
@@ -119,5 +119,5 @@ app.get('/', function (req, res) {
   let protocol = enviroment.https ? 'https' : 'http';
   console.log(`MAILER Express server listening on ${protocol}://${enviroment.host}:${enviroment.port}`);
   if(process && process.argv && process.argv[2])
-    res.send(process.argv[2]);
+    res.send(`tonic mailer smtp: ${process.argv[2]}`);
 });
