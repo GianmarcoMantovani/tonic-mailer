@@ -6,6 +6,7 @@ var fs = require('fs');
 const bodyParser = require('body-parser');
 const nodeMailer = require('nodemailer');
 const environments = require('./environments.json');
+const multer = require('multer');
 
 let enviroment = environments.dev;
 if(process && process.argv && process.argv[2] && process.argv[2] == 'staging'){
@@ -37,6 +38,10 @@ app.use(function(req, res, next) {
 });
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+// for parsing multipart/form-data
+var upload = multer({dest:'./upload/'});
+app.use(express.static('public'));
+
 
 
 const smtpConfig = { 
@@ -70,7 +75,7 @@ app.post('/', function (req, res) {
   });
 
 
-
+  
   // let verificationUrl = "https://www.google.com/recaptcha/api/siteverify?secret=" + enviroment.recaptcha_secret_key + "&response=" + recaptchaToken;
  
   // request(verificationUrl,function(error,response,body) {
@@ -89,6 +94,25 @@ app.post('/', function (req, res) {
   
   
   
+})
+
+app.post('/carrers', upload.single('file'), function (req, res) {
+  const { name, email, phone, linkedin } = req.body;  
+  mailOptions.subject = 'Tonic3 - Carrers';
+  mailOptions.text = `Name: ${name}\r\nEmail: ${email}\r\nPhone: ${phone}\r\nlinkedin: ${linkedin}\r\n`;
+  mailOptions.attachments = [
+    {
+        filename: req.file.originalname,
+        path: req.file.path
+    }
+  ]
+
+  // SENDING MAIL WITHOUT CAPTCHA VERIFICATION
+  const transporter = nodeMailer.createTransport(smtpConfig);
+   transporter.sendMail(mailOptions, function(error, info){
+    if(error) res.json({ "success" : false });
+    else res.json({ "success" : true });
+  });
 })
 
 app.get('/', function (req, res) {
