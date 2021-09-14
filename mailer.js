@@ -100,14 +100,16 @@ app.post('/carrers', upload.single('file'), function (req, res) {
   const { name, email, phone, linkedin } = req.body;  
   mailOptions.subject = 'Tonic3 - Carrers';
   mailOptions.text = `Name: ${name}\r\nEmail: ${email}\r\nPhone: ${phone}\r\nlinkedin: ${linkedin}\r\n`;
-  mailOptions.attachments = [
-    {
-        filename: req.file.originalname,
-        path: req.file.path
-    }
-  ]
-
-  // SENDING MAIL WITHOUT CAPTCHA VERIFICATION
+  console.log(req.file);
+  if(req.file){
+    mailOptions.attachments = [
+      {
+          filename: req.file.originalname,
+          path: req.file.path
+      }
+    ]
+  }
+  
   const transporter = nodeMailer.createTransport(smtpConfig);
    transporter.sendMail(mailOptions, function(error, info){
     if(error) res.json({ "success" : false });
