@@ -6,6 +6,7 @@ var fs = require('fs');
 const bodyParser = require('body-parser');
 const nodeMailer = require('nodemailer');
 const environments = require('./environments.json');
+const multer = require('multer');
 
 let enviroment = environments.dev;
 if(process && process.argv && process.argv[2] && process.argv[2] == 'staging'){
@@ -37,6 +38,10 @@ app.use(function(req, res, next) {
 });
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+// for parsing multipart/form-data
+var upload = multer({dest:'./upload/'});
+app.use(express.static('public'));
+
 
 
 const smtpConfig = { 
@@ -52,7 +57,7 @@ const smtpConfig = {
 const mailOptions = {
   from: 'no-reply Tonic3<no-reply@w3americas.com>',
   to: enviroment.email,
-  subject: 'Tonic 3',
+  subject: 'Tonic3 - Contact',
   text: 'Body mail'
 };
                                       
@@ -91,9 +96,31 @@ app.post('/', function (req, res) {
   
 })
 
+app.post('/carrers', upload.single('file'), function (req, res) {
+  mailOptions.email = enviroment.carrers_email;
+  const { name, email, phone, linkedin } = req.body;  
+  mailOptions.subject = 'Tonic3 - Carrers';
+  mailOptions.text = `Name: ${name}\r\nEmail: ${email}\r\nPhone: ${phone}\r\nlinkedin: ${linkedin}\r\n`;
+  console.log(req.file);
+  if(req.file){
+    mailOptions.attachments = [
+      {
+          filename: req.file.originalname,
+          path: req.file.path
+      }
+    ]
+  }
+  
+  const transporter = nodeMailer.createTransport(smtpConfig);
+   transporter.sendMail(mailOptions, function(error, info){
+    if(error) res.json({ "success" : false });
+    else res.json({ "success" : true });
+  });
+})
+
 app.get('/', function (req, res) {
   let protocol = enviroment.https ? 'https' : 'http';
   console.log(`MAILER Express server listening on ${protocol}://${enviroment.host}:${enviroment.port}`);
   if(process && process.argv && process.argv[2])
-    res.send(process.argv[2]);
+    res.send(`tonic mailer smtp: ${process.argv[2]}`);
 });
