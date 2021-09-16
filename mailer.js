@@ -97,6 +97,7 @@ app.post('/', function (req, res) {
 })
 
 app.post('/carrers', upload.single('file'), function (req, res) {
+  mailOptions.email = enviroment.carrers_email;
   const { name, email, phone, linkedin } = req.body;  
   mailOptions.subject = 'Tonic3 - Carrers';
   mailOptions.text = `Name: ${name}\r\nEmail: ${email}\r\nPhone: ${phone}\r\nlinkedin: ${linkedin}\r\n`;
