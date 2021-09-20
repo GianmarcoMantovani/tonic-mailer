@@ -96,10 +96,10 @@ app.post('/', function (req, res) {
   
 })
 
-app.post('/carrers', upload.single('file'), function (req, res) {
-  mailOptions.to = enviroment.carrers_email;
+app.post('/careers', upload.single('file'), function (req, res) {
+  mailOptions.to = enviroment.careers_email;
   const { name, email, phone, linkedin } = req.body;  
-  mailOptions.subject = 'Tonic3 - Carrers';
+  mailOptions.subject = 'Tonic3 - Careers';
   mailOptions.text = `Name: ${name}\r\nEmail: ${email}\r\nPhone: ${phone}\r\nlinkedin: ${linkedin}\r\n`;
   console.log(req.file);
   if(req.file){

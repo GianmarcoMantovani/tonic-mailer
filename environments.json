@@ -2,7 +2,7 @@
   "dev" : {
     "production": false,
     "email": "",
-    "carrers_email": "",
+    "careers_email": "",
     "host": "localhost",
     "port": 3003,
     "https": false,
@@ -12,7 +12,7 @@
   "staging" : {
     "production": false,
     "email": "sales@tonic3.com",
-    "carrers_email": "talent@tonic3.com",
+    "careers_email": "talent@tonic3.com",
     "host": "STAGING",
     "port": 3003,
     "https": false,
@@ -22,7 +22,7 @@
   "prod" : {
     "production": true,
     "email": "sales@tonic3.com",
-    "carrers_email": "talent@tonic3.com",
+    "careers_email": "talent@tonic3.com",
     "host": "PROD",
     "port": 3003,
     "https": true,
