@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 const nodeMailer = require('nodemailer');
 const environments = require('./environments.json');
 const multer = require('multer');
+const {buildJobPostulationReply} = require('./template/buildJobPostulationReply');
 
 let enviroment = environments.dev;
 if(process && process.argv && process.argv[2] && process.argv[2] == 'staging'){
@@ -98,10 +99,10 @@ app.post('/', function (req, res) {
 
 app.post('/careers', upload.single('file'), function (req, res) {
   mailOptions.to = enviroment.careers_email;
-  const { name, email, phone, linkedin } = req.body;  
+  const { name, email, phone, linkedin, language } = req.body;  
   mailOptions.subject = 'Tonic3 - Careers';
   mailOptions.text = `Name: ${name}\r\nEmail: ${email}\r\nPhone: ${phone}\r\nlinkedin: ${linkedin}\r\n`;
-  console.log(req.file);
+
   if(req.file){
     mailOptions.attachments = [
       {
@@ -112,9 +113,19 @@ app.post('/careers', upload.single('file'), function (req, res) {
   }
   
   const transporter = nodeMailer.createTransport(smtpConfig);
-   transporter.sendMail(mailOptions, function(error, info){
-    if(error) res.json({ "success" : false });
-    else res.json({ "success" : true });
+   transporter.sendMail(mailOptions, async function(error, info){
+    if(error) {
+      return res.json({ "success" : false });
+    }
+    
+    try{
+      const response = await transporter.sendMail(buildJobPostulationReply(email, language));
+    }
+    catch(err){ 
+      console.log('failed', err);
+    } 
+
+    return res.json({ "success" : true });
   });
 })
 
